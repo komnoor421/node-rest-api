@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Link } from 'react-router-dom';
 
 import { Employees } from './components/Employees';
+import { Departments } from './components/Departments';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -20,12 +21,14 @@ class App extends Component {
                 <div>
                   <h2>Click to View</h2>
                   <div className='button-group'>
-                    <button type="button" className="view-button btn btn-primary btn-lg"><i className="fas fa-user"></i>Employees</button>
-                    <button type="button" className="view-button btn btn-primary btn-lg"><i className="fas fa-building"></i>Departments</button>
+                    <Link to='/employees'><button type="button" className="view-button btn btn-primary btn-lg"><i className="fas fa-user"></i>Employees</button></Link>
+                    <Link to='/departments'><button type="button" className="view-button btn btn-primary btn-lg"><i className="fas fa-building"></i>Departments</button></Link>
                   </div>
                 </div>
               )}/>
-              <Route path='/employees' component={Employees} />
+              <Route exact path='/employees' component={Employees} />
+              <Route exact path='/employees/add' component={Employees} />
+              <Route exact path='/departments' component={Departments} />
             </div>
           </BrowserRouter>
         </div>
