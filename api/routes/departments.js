@@ -25,8 +25,8 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   const department = new Department({
     _id: new mongoose.Types.ObjectId(),
-    departmentId: 5,
-    name: "Political"
+    departmentId: req.body.departmentId,
+    name: req.body.name
   });
   department.save().then(result => {
     console.log(result);
@@ -53,7 +53,7 @@ router.get('/:deptId', (req, res) => {
         if (doc) {
           res.status(200).json(doc);
         } else {
-          res.status(404).json({ message: "No employee found with specified id" });
+          res.status(404).json({ message: "No department found with specified id" });
         }
       })
       .catch(err => {

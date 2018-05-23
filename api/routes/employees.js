@@ -6,7 +6,22 @@ const Employee = require('../models/employee');
 
 //GET request for all employees
 router.get('/', (req, res) => {
-  Employee.find()
+  let deptId = req.query.deptId;
+  if (deptId == null) {
+    Employee.find()
+      .exec()
+        .then(docs => {
+          console.log(docs);
+          res.status(200).json(docs);
+        })
+        .catch(err => {
+          console.log(err);
+          res.status(500).json({
+            error: err
+          });
+        });
+  } else {
+    Employee.find({departmentId : deptId})
     .exec()
       .then(docs => {
         console.log(docs);
@@ -18,6 +33,7 @@ router.get('/', (req, res) => {
           error: err
         });
       });
+  }
 });
 
 //POST request for a new employee
@@ -77,7 +93,9 @@ router.patch('/:employeeid', (req, res) => {
     .exec()
     .then(result => {
       console.log(result);
-      res.status(200).json(result);
+      res.status(200).json({
+        message: "Employee Updated!"
+      });
     })
     .catch(err => {
       console.log(err);
