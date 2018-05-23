@@ -1,16 +1,81 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
 
+const Department = require('../models/department');
+
+//GET request for all departments
 router.get('/', (req, res) => {
-  res.status(200).json({
-    message: 'Handling GET requests to /departments'
+  Department.find()
+    .exec()
+      .then(docs => {
+        console.log(docs);
+        res.status(200).json(docs);
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({
+          error: err
+        });
+      });
+});
+
+
+//POST request for a new department
+router.post('/', (req, res) => {
+  const department = new Department({
+    _id: new mongoose.Types.ObjectId(),
+    departmentId: 5,
+    name: "Political"
+  });
+  department.save().then(result => {
+    console.log(result);
+    res.status(201).json({
+      message: 'Handling POST requests to /departments',
+      addedDepartment: department
+    });
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json({
+      error: err
+    });
   });
 });
 
-router.post('/', (req, res) => {
-  res.status(201).json({
-    message: 'Handling POST requests to /departments'
-  });
+//GET request for a specific department by id
+router.get('/:deptId', (req, res) => {
+  const id = req.params.deptId;
+  Department.findOne({departmentId : id})
+    .exec()
+      .then(doc => {
+        console.log("From database", doc);
+        if (doc) {
+          res.status(200).json(doc);
+        } else {
+          res.status(404).json({ message: "No employee found with specified id" });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({ error: err });
+      });
+});
+
+//DELETE request for specific department by id
+router.delete('/:deptId', (req, res) => {
+  const id = req.params.deptId;
+  Department.remove({ _id: id })
+    .exec()
+      .then(result => {
+        res.status(200).json(result);
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({
+          error: err
+        });
+      });
 });
 
 module.exports = router;

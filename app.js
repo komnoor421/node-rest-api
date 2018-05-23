@@ -7,7 +7,7 @@ const employeeRoutes = require('./api/routes/employees');
 const departmentRoutes = require('./api/routes/departments');
 
 //Connect to Mongoose
-mongoose.connect('mongodb://komron:komron@node-rest-api-shard-00-00-fyqxe.mongodb.net:27017,node-rest-api-shard-00-01-fyqxe.mongodb.net:27017,node-rest-api-shard-00-02-fyqxe.mongodb.net:27017/nodeRest?ssl=true&replicaSet=node-rest-api-shard-0&authSource=admin&retryWrites=true');
+mongoose.connect('mongodb://komron:komron@node-rest-api-shard-00-00-fyqxe.mongodb.net:27017,node-rest-api-shard-00-01-fyqxe.mongodb.net:27017,node-rest-api-shard-00-02-fyqxe.mongodb.net:27017/nodeRest?ssl=true&replicaSet=node-rest-api-shard-0&authSource=admin&retryWrites=false');
 
 //Test MongoDB Connection
 var db = mongoose.connection;
@@ -31,7 +31,7 @@ app.use((req, res, next) => {
 
 //custom error handling for unknown routes
 app.use((error, req, res, next) => {
-  res.status(error.status);
+  res.status(error.status || 500);
   res.json({
     error: {
       message: error.message
@@ -39,4 +39,5 @@ app.use((error, req, res, next) => {
   });
 });
 
+//listen on port 3000
 app.listen(3000, () => console.log('Listening on port 3000...'));
