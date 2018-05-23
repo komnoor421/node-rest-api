@@ -2,15 +2,20 @@
   "name": "rest-api",
   "version": "1.0.0",
   "description": "A simple Node RESTful API application",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "client-install": "cd client & npm install",
+    "server-start": "node server.js",
+    "server-dev": "nodemon server.js",
+    "client-start": "cd client && npm start",
+    "dev": "concurrently \"npm run server-start\" \"npm run client-start\""
   },
   "author": "Komron Noorbakhsh",
   "license": "ISC",
   "homepage": "https://github.com/komnoor421/node-rest-api#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "concurrently": "^3.5.1",
     "express": "^4.16.3",
     "mongoose": "^5.1.2"
   }
