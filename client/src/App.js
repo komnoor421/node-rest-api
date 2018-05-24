@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 
 import { Employees } from './components/Employees';
+import { EmployeeAdd } from './components/EmployeeAdd';
+import { EmployeeEdit } from './components/EmployeeEdit';
 import { Departments } from './components/Departments';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -27,7 +29,8 @@ class App extends Component {
                 </div>
               )}/>
               <Route exact path='/employees' component={Employees} />
-              <Route exact path='/employees/add' component={Employees} />
+              <Route exact path='/employees/add' component={EmployeeAdd} />
+              <Route exact path='/employee/:id' component={EmployeeEdit} />
               <Route exact path='/departments' component={Departments} />
             </div>
           </BrowserRouter>
