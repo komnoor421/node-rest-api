@@ -51,7 +51,7 @@ router.post('/', (req, res) => {
   employee.save().then(result => {
     console.log(result);
     res.status(201).json({
-      message: 'Handling POST requests to /employees',
+      message: 'Added New Employee!',
       addedEmployee: employee
     });
   })
@@ -85,11 +85,15 @@ router.get('/:employeeid', (req, res) => {
 //UPDATE request for specific employee by id
 router.patch('/:employeeid', (req, res) => {
   const id = req.params.employeeid;
-  const updateOps = {};
-  for (const ops of req.body) {
-    updateOps[ops.propName] = ops.value;
-  }
-  Employee.update({ _id: id }, { $set: updateOps })
+  Employee.update({ _id: id }, { $set :
+    {
+      name: req.body.name,
+      gender: req.body.gender,
+      phone: req.body.phone,
+      email: req.body.email,
+      jobTitle: req.body.jobTitle
+    }
+  })
     .exec()
     .then(result => {
       console.log(result);
@@ -111,7 +115,9 @@ router.delete('/:employeeid', (req, res) => {
   Employee.remove({ _id: id })
     .exec()
       .then(result => {
-        res.status(200).json(result);
+        res.status(200).json({
+          message: "Employee Deleted!"
+        });
       })
       .catch(err => {
         console.log(err);
