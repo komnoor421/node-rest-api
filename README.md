@@ -2,6 +2,10 @@
 
 A simple web application using an Express RESTful API server, MongoDB with Mongoose, and a front end client in React for CRUD (Create, Read, Update, Delete).
 
+## Requirements
+
+NodeJS w/NPM (Node Package Manager) - Download - https://nodejs.org/
+
 ## Getting Started
 
 1. Install dependencies for server <br />
