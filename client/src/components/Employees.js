@@ -24,7 +24,7 @@ export class Employees extends React.Component {
   }
 
   render() {
-    if (this.state.loading == true) {
+    if (this.state.loading === true) {
       return (<h1>Loading...</h1>)
     } else {
       return (
@@ -58,6 +58,7 @@ export class Employees extends React.Component {
               })}
             </tbody>
           </table>
+          <Link to='/'><button type="button" className="btn btn-warning">Change View</button></Link>
           <Link to='/employees/add'><button type="button" className="btn btn-info">Add Employee</button></Link>
         </div>
       );

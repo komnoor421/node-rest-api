@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export class EmployeeAdd extends React.Component {
   addEmployee(e) {
@@ -29,6 +30,9 @@ export class EmployeeAdd extends React.Component {
     this.refs.job.value = null;
   }
 
+  toEmployees() {
+    this.props.history.push('/employees');
+  }
 
   render() {
     return (
@@ -85,8 +89,22 @@ export class EmployeeAdd extends React.Component {
               placeholder="Job Title"
             />
           </div>
-          <button type="submit" className="btn btn-primary" onClick={this.addEmployee.bind(this)}>Add</button>
+          <Link to='/employees'><button className="btn btn-secondary">Cancel</button></Link>
+          <button type="submit" className="btn btn-primary" data-toggle="modal" data-target="#addedModal" onClick={this.addEmployee.bind(this)}>Add</button>
         </form>
+
+        <div className="modal fade" id="addedModal" tabIndex="-1" data-backdrop="static">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="exampleModalLabel">Employee Added!</h5>
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.toEmployees.bind(this)}>OK</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

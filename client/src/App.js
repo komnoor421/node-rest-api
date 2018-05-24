@@ -4,9 +4,11 @@ import { BrowserRouter, Route, Link } from 'react-router-dom';
 import { Employees } from './components/Employees';
 import { EmployeeAdd } from './components/EmployeeAdd';
 import { EmployeeEdit } from './components/EmployeeEdit';
+import { DepartmentAdd } from './components/DepartmentAdd';
 import { Departments } from './components/Departments';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.min.js';
 import './App.css';
 
 class App extends Component {
@@ -32,6 +34,7 @@ class App extends Component {
               <Route exact path='/employees/add' component={EmployeeAdd} />
               <Route exact path='/employee/:id' component={EmployeeEdit} />
               <Route exact path='/departments' component={Departments} />
+              <Route exact path='/departments/add' component={DepartmentAdd} />
             </div>
           </BrowserRouter>
         </div>

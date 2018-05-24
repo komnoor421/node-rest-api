@@ -53,3 +53,7 @@ label {
 .table-dark.table-hover tbody tr:hover {
   cursor: pointer;
 }
+
+button {
+  margin: 0 10px;
+}

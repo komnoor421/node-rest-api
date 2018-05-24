@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export class EmployeeEdit extends React.Component {
   constructor() {
@@ -38,6 +39,12 @@ export class EmployeeEdit extends React.Component {
     })
     .then(res => res.json())
     .then(changeEm => console.log(changeEm));
+
+    this.refs.name.value = null;
+    this.refs.gender.value = null;
+    this.refs.phone.value = null;
+    this.refs.email.value = null;
+    this.refs.job.value = null;
   }
 
   deleteEmployee(e) {
@@ -49,8 +56,12 @@ export class EmployeeEdit extends React.Component {
     .then(result => console.log(result));
   }
 
+  toEmployees() {
+    this.props.history.push('/employees');
+  }
+
   render() {
-    if (this.state.loading == true) {
+    if (this.state.loading === true) {
       return (<h1>Loading...</h1>)
     } else {
       return (
@@ -112,25 +123,32 @@ export class EmployeeEdit extends React.Component {
                 defaultValue={this.state.employee.jobTitle}
               />
             </div>
-            <button type="submit" className="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onClick={this.editEmployee.bind(this)}>Save</button>
-            <button type="submit" className="btn btn-danger" onClick={this.deleteEmployee.bind(this)}>Delete</button>
+            <Link to='/employees'><button className="btn btn-secondary">Cancel</button></Link>
+            <button type="submit" className="btn btn-primary" data-toggle="modal" data-target="#changedModal" onClick={this.editEmployee.bind(this)}>Save</button>
+            <button type="submit" className="btn btn-danger" data-toggle="modal" data-target="#deletedModal" onClick={this.deleteEmployee.bind(this)}>Delete</button>
           </form>
 
-          <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div className="modal-dialog" role="document">
+          <div className="modal fade" id="changedModal" tabIndex="-1" data-backdrop="static">
+            <div className="modal-dialog">
               <div className="modal-content">
                 <div className="modal-header">
-                  <h5 className="modal-title" id="exampleModalLabel">Modal title</h5>
-                  <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div className="modal-body">
-                  ...
+                  <h5 className="modal-title" id="exampleModalLabel">Employee Changed!</h5>
                 </div>
                 <div className="modal-footer">
-                  <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="button" className="btn btn-primary">Save changes</button>
+                  <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.toEmployees.bind(this)}>OK</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="modal fade" id="deletedModal" tabIndex="-1" data-backdrop="static">
+            <div className="modal-dialog">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title" id="exampleModalLabel">Employee Deleted!</h5>
+                </div>
+                <div className="modal-footer">
+                  <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={this.toEmployees.bind(this)}>OK</button>
                 </div>
               </div>
             </div>
